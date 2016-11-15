@@ -40,6 +40,8 @@ dtm <- TermDocumentMatrix(docs)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
+write.table(x = d, file = "o1.csv", sep = ",", 
+            col.names = NA, qmethod = "double")
 head(d, 10)
 set.seed(1234)
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
@@ -49,4 +51,13 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
 barplot(d[1:20,]$freq, las = 2, names.arg = d[1:20,]$word,
         col ="lightblue", main ="Freq words",
         ylab = "freq")
+##
+library(hunspell)
+# words <- c("beer", "wiskey", "wine")
+words <- readLines("/Users/HCHung/Documents/2016demo/demo1115WCbyR/o1.csv")
+# hunspell_check(words)
+bad_words <- hunspell(words)
+head(bad_words, 10)
+# write(bad_words, file = "o2.txt", sep = "\t")
+lapply(bad_words, write, "o3.txt", append=TRUE, ncolumns=1000)
 ##
