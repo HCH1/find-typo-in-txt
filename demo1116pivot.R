@@ -2,7 +2,8 @@
 # install.packages("compare")
 # library(reshape2)
 # library(compare)
-##
+## https://www.r-bloggers.com/reshape-and-aggregate-data-with-the-r-package-reshape2/
+## http://seananderson.ca/2013/10/19/reshape.html
 setwd("~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/28LPSe_Rev1.0_1.0_Truth_Tables_n1n2csv")
 ttcsv <- read.csv(file = "~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/28LPSe_Rev1.0_1.0_Truth_Tables_n1n2csv/28LPSe_Rev1.0_1.0_Truth_Tables_DTTn1v3.csv",header = TRUE)
 # unpivot
