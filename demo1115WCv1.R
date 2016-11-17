@@ -9,7 +9,8 @@
 # library("SnowballC")
 # library("wordcloud")
 # library("RColorBrewer")
-text <- readLines(".txt")
+inpath = "~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/22FDX_Rev1.0_0.0.txt"
+text <- readLines(inpath)
 text <- gsub("[[^A-Za-z0-9]]"," ", text)
 text <- gsub("[[:punct:]]"," ", text)
 docs <- Corpus(VectorSource(text))
