@@ -13,6 +13,7 @@ inpath = "~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/22F
 text <- readLines(inpath)
 text <- gsub("[[^A-Za-z0-9]]"," ", text)
 text <- gsub("[[:punct:]]"," ", text)
+text <- gsub("[[^0-9$]]"," ", text)
 docs <- Corpus(VectorSource(text))
 # docs <- gsub("rx","rrxx",docs)
 # toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
