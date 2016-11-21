@@ -9,22 +9,30 @@
 # library("SnowballC")
 # library("wordcloud")
 # library("RColorBrewer")
-inpath = "~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/22FDX_Rev1.0_0.0.txt"
+inpath = "~/Documents/2016demo/demo1115WCbyR/drive-download-20161116T115340Z/22FDX_Rev1.1_0.0_PRE01_internal.txt"
 text <- readLines(inpath)
-text <- gsub("[[^A-Za-z0-9]]"," ", text)
-text <- gsub("[[:punct:]]"," ", text)
-text <- gsub("[[^0-9$]]"," ", text)
+##
+text <- gsub("^[[:digit:]].[[:digit:]]$"," ", text)
+text <- gsub("\\.$","", text)
+text <- gsub("\\,"," ", text)
+text <- gsub("\\;"," ", text)
+text <- gsub("\\/"," ", text)
+text <- gsub("\\("," ", text)
+text <- gsub("\\)"," ", text)
+text <- gsub("\\["," ", text)
+text <- gsub("\\]"," ", text)
+text <- gsub("\\{"," ", text)
+text <- gsub("\\}"," ", text)
+text <- gsub("[[:space:]]"," ", text)
+##
 docs <- Corpus(VectorSource(text))
-# docs <- gsub("rx","rrxx",docs)
-# toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
-# docs <- tm_map(docs, toSpace, "\\(")
 docs <- tm_map(docs, content_transformer(tolower))
 docs <- tm_map(docs, stripWhitespace)
 dtm <- TermDocumentMatrix(docs)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
-write.table(x = d, file = "o11.csv", sep = ",", 
+write.table(x = d, file = "o1121v1.csv", sep = ",", 
             col.names = NA, qmethod = "double")
 head(d, 10)
 set.seed(1234)
@@ -38,10 +46,10 @@ barplot(d[1:20,]$freq, las = 2, names.arg = d[1:20,]$word,
         ylab = "freq")
 ##
 # words <- c("beer", "wiskey", "wine")
-words <- readLines("o11.csv")
+words <- readLines("o1121v1.csv")
 # hunspell_check(words)
 bad_words <- hunspell(words)
 head(bad_words, 10)
 # write(bad_words, file = "o2.txt", sep = "\t")
-lapply(bad_words, write, "o33.txt", append=TRUE, ncolumns=1000)
+# lapply(bad_words, write, "o33.txt", append=TRUE, ncolumns=1000)
 ##
